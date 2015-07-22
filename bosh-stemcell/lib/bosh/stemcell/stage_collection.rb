@@ -86,6 +86,19 @@ module Bosh::Stemcell
           :image_create,
           :image_install_grub,
         ]
+      elsif is_baserock?
+        [
+          # Misc
+          :system_parameters,
+          # Finalisation,
+          :bosh_clean,
+          :bosh_harden,
+          :bosh_disable_password_authentication,
+          :bosh_openstack_agent_settings,
+          :disable_blank_passwords,
+          # Image/bootloader
+          :image_create,
+        ]
       else
         [
           :system_network,
@@ -302,6 +315,10 @@ module Bosh::Stemcell
 
     def is_rhel?
       operating_system.instance_of?(OperatingSystem::Rhel)
+    end
+
+    def is_baserock?
+      operating_system.instance_of?(OperatingSystem::Baserock)
     end
   end
 end
