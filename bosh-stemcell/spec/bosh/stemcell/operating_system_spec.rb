@@ -7,6 +7,7 @@ module Bosh::Stemcell
       it 'returns the correct infrastrcture' do
         expect(OperatingSystem.for('centos', '99')).to be_a(OperatingSystem::Centos)
         expect(OperatingSystem.for('ubuntu', 'penguin')).to be_a(OperatingSystem::Ubuntu)
+        expect(OperatingSystem.for('baserock', 'baserock-version')).to be_a(OperatingSystem::Baserock)
       end
 
       it 'raises for unknown operating system' do
@@ -52,6 +53,7 @@ module Bosh::Stemcell
     it { should eq OperatingSystem.for('centos', '99') }
     it { should_not eq OperatingSystem.for('rhel', '99') }
     it { should_not eq OperatingSystem.for('ubuntu', 'penguin') }
+    it { should_not eq OperatingSystem.for('baserock', 'baserock-version') }
   end
 
   describe OperatingSystem::Ubuntu do
@@ -62,6 +64,7 @@ module Bosh::Stemcell
     it { should eq OperatingSystem.for('ubuntu', 'penguin') }
     it { should_not eq OperatingSystem.for('rhel', '99') }
     it { should_not eq OperatingSystem.for('centos', '99') }
+    it { should_not eq OperatingSystem.for('baserock', 'baserock-version') }
   end
 
   describe OperatingSystem::Rhel do
@@ -69,6 +72,17 @@ module Bosh::Stemcell
 
     its(:name) { should eq('rhel') }
     it { should eq OperatingSystem.for('rhel', '99') }
+    it { should_not eq OperatingSystem.for('centos', '99') }
+    it { should_not eq OperatingSystem.for('ubuntu', 'penguin') }
+    it { should_not eq OperatingSystem.for('baserock', 'baserock-version') }
+  end
+
+  describe OperatingSystem::Baserock do
+    subject { OperatingSystem::Baserock.new('baserock-version') }
+
+    its(:name) { should eq('baserock') }
+    it { should eq OperatingSystem.for('baserock', 'baserock-version') }
+    it { should_not eq OperatingSystem.for('rhel', '99') }
     it { should_not eq OperatingSystem.for('centos', '99') }
     it { should_not eq OperatingSystem.for('ubuntu', 'penguin') }
   end
