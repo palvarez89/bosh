@@ -98,6 +98,7 @@ module Bosh::Stemcell
           :disable_blank_passwords,
           # Image/bootloader
           :image_create,
+          :image_install_extlinux
         ]
       else
         [
