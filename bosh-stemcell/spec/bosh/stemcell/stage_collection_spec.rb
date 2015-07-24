@@ -236,10 +236,6 @@ module Bosh::Stemcell
             expect(stage_collection.build_stemcell_image_stages).to eq(
               [
                 :crap
-                :system_network,
-                :system_openstack_clock,
-                :system_openstack_modules,
-                :system_parameters,
                 :bosh_clean,
                 :bosh_harden,
                 :bosh_disable_password_authentication,
